@@ -1,7 +1,5 @@
 #include "../so_long.h"
 
-void f_print_map(char **map);
-
 static void	check_type(t_map *map_info, char c)
 {
 	if (c == 'C')

@@ -1,4 +1,5 @@
 #include "so_long.h"
+
 t_tile		**tilemap_generator(char **map, t_game *game);
 
 t_tile	**init_map(t_game *game, int argc, char **argv)
@@ -11,7 +12,7 @@ t_tile	**init_map(t_game *game, int argc, char **argv)
 	map = read_map(argv[1]);
 	if (!map)
 		return (NULL);
-	if (check_map_rules(map) == 0)
+	if (check_map_rules(chartab_dup(map)) == 0)
 	{
 		ft_free_map(map);
 		return(NULL);
@@ -33,7 +34,7 @@ int	start_game(t_game *game, int argc, char **argv)
 	return(1);
 }
 
-/* void print_map(t_game game)
+void print_map(t_game game)
 {
 	int y;
 	int x;
@@ -50,7 +51,7 @@ int	start_game(t_game *game, int argc, char **argv)
 		ft_printf("\n");
 		y++;
 	}
-} */
+}
 
 
 
@@ -60,5 +61,5 @@ int main(int argc, char	**argv)
 
 	if(start_game(&game, argc, argv) == 0)
 		return(0);
-	//print_map(game);
+	print_map(game);
 }

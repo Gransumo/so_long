@@ -59,7 +59,6 @@ char	**read_map(char	*args)
 	while (i < lines)
 		map[i++] = get_next_line(fd);
 	map[i] = NULL;
-	f_print_map(map);
 	close(fd);
 	return (map);
 }

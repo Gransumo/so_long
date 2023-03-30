@@ -74,7 +74,7 @@ t_tile	**tilemap_generator(char **map, t_game *game)
 	while (map[y])
 	{
 		x = 0;
-		while (map[y][x])
+		while (map[y][x] != '\0' && map[y][x] != '\n')
 		{
 			tilemap[y][x].type = set_tiletype(map[y][x]);
 			set_tilevars(tilemap, y, x);

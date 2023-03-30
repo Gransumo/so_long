@@ -1,6 +1,7 @@
 #include "../so_long.h"
 
 int			check_valid_path(t_map *map_info);
+void		init_mapvars(t_map *map);
 
 static int	first_last_line(char *line)
 {
@@ -18,7 +19,6 @@ static int	first_last_line(char *line)
 
 static int	check_map_values(t_map *map_info)
 {
-	ft_printf("C: %i, E: %i, P: %i\n", map_info->n_C, map_info->n_E, map_info->n_P);
 	if(map_info->n_C < 1) // tiene que haber como minimo 1 coleccionable
 		return(error("COLLECTABLE NOT FOUND"));
 	if(map_info->n_E < 1) // tiene que haber como minimo una salida
@@ -97,20 +97,23 @@ int	check_map_rules(char **map)
 
 	i = 0;
 	map_info = malloc(sizeof(t_map));
+	if (!map_info)
+		return (error("ERROR ALLOCATING"));
 	map_info->mapp = map;
-	map_info->n_C = 0;
-	map_info->n_E = 0;
-	map_info->n_P = 0;
-	map_info->n_lines = 0;
-	while (map_info->mapp[++map_info->n_lines] != NULL);	//Cuento las lineas del mapa. Seguramente falte inicializar variables (n_lines)
-	map_info->len_x = ft_strlen_linemap(map_info->mapp[i]);		//Cuento los caracteres de una linea para verificar que el mapa sea rectangular
-	while (map_info->mapp[i] != NULL)					//Si algun line_len es diferente a la primera el mapa no es rectangular
-	{//Con este bucle voy a verificar las reglas en cada linea
+	init_mapvars(map_info); //Inicializo las variables del mapa
+	while (map_info->mapp[i] != NULL)	//Si algun line_len es diferente a la primera el mapa no es rectangular
+	{
 		if(check_line(map_info->mapp[i], map_info, i) == 0) //paso un puntero de la linea, la estructuda del mapa y el indice de la linea
 			return (0);
 		i++;
 	}
-	if(check_map_values(map_info) != 0) // verifico que los valores sean validos
-		return(check_valid_path(map_info));// si los valores son validos (!= 0) se verifica si hay un camino posible
-	return(0);
+	if(check_map_values(map_info) == 0 || check_valid_path(map_info) == 0) // verifico que los valores sean validos
+	{
+		free(map_info);
+		ft_free_map(map);
+		return (0);
+	}
+	free(map_info);
+	ft_free_map(map);
+	return (1);
 }

@@ -19,5 +19,6 @@ char		**read_map(char	*args);
 int			check_map_rules(char **map);
 void		ft_free_map(char **map);
 t_vector	find_pp(char **map);
+char		**chartab_dup(char	**map);
 
 #endif
