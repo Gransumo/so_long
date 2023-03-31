@@ -43,6 +43,7 @@ void print_map(t_game game)
 	x = 0;
 	while (game.tilemap[y])
 	{
+		x = 0;
 		while (game.tilemap[y][x].type != 0)
 		{
 			ft_printf("%c", game.tilemap[y][x].type);
