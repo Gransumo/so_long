@@ -3,7 +3,7 @@ CFLAGS		= -Wall -Werror -Wextra -glldb
 LINKS		= -lmlx -framework OpenGL -framework AppKit
 RM			= rm -f
 NAME		= init.out
-SRCS		= main.c error.c $(SRC_GNL) $(SRC_MAP)
+SRCS		= main.c error.c print_map.c $(SRC_GNL) $(SRC_MAP)
 OBJS		= ${SRCS:.c=.o}
 AR			= ar rc
 

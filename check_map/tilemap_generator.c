@@ -85,5 +85,7 @@ t_tile	**tilemap_generator(char **map, t_game *game)
 		y++;
 	}
 	tilemap[y] = NULL;
+	game->mlx_win.size.x = x * IMG_SIZE;
+	game->mlx_win.size.y = y * IMG_SIZE;
 	return(tilemap);
 }
