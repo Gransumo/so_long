@@ -43,8 +43,8 @@ t_tiletype	set_tiletype(char c)
 
 void	set_tilevars(t_tile **tilemap, int y, int x)
 {
-	tilemap[y][x].position.y = y;
-	tilemap[y][x].position.x = x;
+	tilemap[y][x].position.y = y * IMG_SIZE;
+	tilemap[y][x].position.x = x * IMG_SIZE;
 	if (y != 0)
 		tilemap[y][x].up = &tilemap[y - 1][x];
 	if (&tilemap[y + 1][x] != NULL)

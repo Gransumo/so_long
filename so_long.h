@@ -1,7 +1,7 @@
 
 #ifndef	SO_LONG_H
 # define SO_LONG_H
-# define IMG_SIZE 64
+# define IMG_SIZE 40
 # include <mlx.h> 
 # include "com_used.h"
 # include "check_map/map.h"
@@ -61,7 +61,7 @@ typedef struct	s_game
 }				t_game;
 
 
-t_window	init_window(t_game *game);
+void		init_window(t_game *game);
 t_image		*init_images_menu(t_game *game);
 /* t_image		ft_new_img(void	*mlx, char *path);
 t_window	ft_new_window(void *mlx, int widht, int height, char *name); */

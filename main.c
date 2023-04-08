@@ -1,6 +1,28 @@
 #include "so_long.h"
 
 t_tile		**tilemap_generator(char **map, t_game *game);
+void		f_print_map(char **map);
+
+
+void print_map(t_game game)
+{
+	int y;
+	int x;
+
+	y = 0;
+	x = 0;
+	while (game.tilemap[y])
+	{
+		x = 0;
+		while (game.tilemap[y][x].type != 0)
+		{
+			ft_printf("%c", game.tilemap[y][x].type);
+			x++;
+		}
+		ft_printf("\n");
+		y++;
+	}
+}
 
 t_tile	**init_map(t_game *game, int argc, char **argv)
 {
@@ -31,43 +53,28 @@ int	init_all(t_game	*game, int argc, char **argv)
 	game->mlx = mlx_init();
 	game->tilemap = init_map(game, argc, argv);
 	game->images = init_images_menu(game);
-	game->mlx_win = init_window(game);
+	init_window(game);
 	if (!game->mlx || !game->tilemap || !game->images  || !game->mlx_win.reference)
 		return (0);
 	return (1);
 }
 
-int	start_game(t_game *game, int argc, char **argv)
-{
-	if(init_all(game, argc, argv) == 0)
-		return (0);
-	mlx_loop(game->mlx);
-	return(1);
-}
 
 /* void	ft_leaks()
 {
 	system("leaks init.out");
 } */
 
-void print_map(t_game game)
-{
-	int y;
-	int x;
 
-	y = 0;
-	x = 0;
-	while (game.tilemap[y])
-	{
-		x = 0;
-		while (game.tilemap[y][x].type != 0)
-		{
-			ft_printf("%c", game.tilemap[y][x].type);
-			x++;
-		}
-		ft_printf("\n");
-		y++;
-	}
+
+int	start_game(t_game *game, int argc, char **argv)
+{
+	if(init_all(game, argc, argv) == 0)
+		return (0);
+	//system("leaks init.out");
+	mlx_hook(game->mlx_win.reference, 2, 1L<<0, close, game);
+	mlx_loop(game->mlx);
+	return(1);
 }
 
 int main(int argc, char	**argv)
@@ -76,7 +83,5 @@ int main(int argc, char	**argv)
 
 	if(start_game(&game, argc, argv) == 0)
 		return(0);
-	
-	print_map(game);
 	return (0);
 }
