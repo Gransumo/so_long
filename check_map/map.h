@@ -1,16 +1,27 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gcastro- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/12 03:45:39 by gcastro-          #+#    #+#             */
+/*   Updated: 2023/04/12 03:45:40 by gcastro-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef MAP_H
 # define MAP_H
-#include "../com_used.h"
-#include "../so_long.h"
+# include "../com_used.h"
+# include "../so_long.h"
 
-typedef struct	s_map
+typedef struct s_map
 {
 	int			len_x;
 	int			n_lines;
-	int			n_C;
-	int			n_E;
-	int			n_P;
+	int			n_c;
+	int			n_e;
+	int			n_p;
 	char		**mapp;
 }				t_map;
 

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tilemap_generator.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gcastro- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/12 03:45:58 by gcastro-          #+#    #+#             */
+/*   Updated: 2023/04/12 03:45:59 by gcastro-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "map.h"
 
 t_tile	**alloc_tilemap(char **map)
@@ -5,29 +17,27 @@ t_tile	**alloc_tilemap(char **map)
 	t_tile	**tilemap;
 	int		i;
 
-	tilemap = malloc(sizeof(t_tile *) * ft_charmap_linecounter(map) + 1);// !!CAMBIAR FUNCION LINE_COUNTER
+	tilemap = malloc (sizeof (t_tile *) * ft_charmap_linecounter (map) + 1);
 	if (!tilemap)
 		return (NULL);
 	i = 0;
 	while (map[i] != NULL)
 	{
-		tilemap[i] = malloc(sizeof(t_tile) * ft_strlen_linemap(map[i]) + 1);
+		tilemap[i] = malloc (sizeof (t_tile) * ft_strlen_linemap (map[i]) + 1);
 		if (!tilemap)
 		{
-			while (i >= 0)
-				free(tilemap[i--]); //SI FALLA ALGUN LEAK REVISAR ESTA LINEA
-			free(tilemap);
-			return(NULL);
+			ft_free_tilemap (tilemap);
+			return (NULL);
 		}
 		i++;
 	}
-	return (tilemap);	
+	return (tilemap);
 }
 
 t_tiletype	set_tiletype(char c)
 {
 	t_tiletype	tile;
-	
+
 	if (c == '1')
 		tile = WALL;
 	if (c == '0')
@@ -67,7 +77,8 @@ t_tile	**tilemap_generator(char **map, t_game *game)
 	t_tile	**tilemap;
 	int		x;
 	int		y;
-	tilemap = alloc_tilemap(map); //RESERVO MEMORIA PARA EL MAPA DE MOSAICOS
+
+	tilemap = alloc_tilemap (map);
 	if (!tilemap)
 		return (null_error("MALLOC ERROR ON ALLOC TILEMAP"));
 	y = 0;
@@ -87,5 +98,5 @@ t_tile	**tilemap_generator(char **map, t_game *game)
 	tilemap[y] = NULL;
 	game->mlx_win.size.x = x * IMG_SIZE;
 	game->mlx_win.size.y = y * IMG_SIZE;
-	return(tilemap);
+	return (tilemap);
 }

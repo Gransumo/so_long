@@ -1,27 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   close.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gcastro- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/08 18:40:15 by gcastro-          #+#    #+#             */
-/*   Updated: 2022/04/08 18:40:16 by gcastro-         ###   ########.fr       */
+/*   Created: 2023/04/12 03:41:55 by gcastro-          #+#    #+#             */
+/*   Updated: 2023/04/12 03:41:58 by gcastro-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "so_long.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+void	ft_free_tilemap(t_tile	**tilemap)
 {
-	char	*new;
+	int	i;
 
-	if (s1 == NULL || s2 == NULL)
-		return (0);
-	new = malloc (ft_strlen (s1) + ft_strlen (s2) + 1);
-	if (new == NULL)
-		return (0);
-	ft_strlcpy (new, s1, ft_strlen (s1) + 1);
-	ft_strlcat (new, s2, ft_strlen (s1) + ft_strlen (s2) + 1);
-	return (new);
+	i = 0;
+	while (tilemap[i])
+	{
+		free(tilemap[i]);
+		i++;
+	}
+	free(tilemap);
+}
+
+int	finish_game(t_game *game)
+{
+	ft_free_tilemap (game->tilemap);
+	game->tilemap = NULL;
+	exit (0);
 }

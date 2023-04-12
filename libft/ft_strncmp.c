@@ -36,10 +36,10 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 
 int	ft_strcmp_end(const char *s, const char *final)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
-	i = (ft_strlen(s) - ft_strlen(final));
+	i = (ft_strlen (s) - ft_strlen(final));
 	j = 0;
 	while (s[i] != '\0')
 	{
