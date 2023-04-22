@@ -11,6 +11,26 @@
 /* ************************************************************************** */
 
 #include "../so_long.h"
+//AQUI QUEDAN COSAS POR BORRAR
+void	f_print_map(char **map)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (map[i])
+	{
+		while (map[i][j] != '\0')
+		{
+			ft_printf ("%c", map[i][j]);
+			j++;
+		}
+		j = 0;
+		i++;
+	}
+	ft_printf ("\n\n");
+}
 
 static void	check_type(t_map *map_info, char c)
 {
@@ -29,56 +49,51 @@ static int	check_final_values(t_map *map_info)
 	return (1);
 }
 
-static void	ft_move(t_map *map_info, char c, t_vector *runner_pp)
+static t_vector	ft_move(t_map *map_info, char c, t_vector runner_pp)
 {
 	if (c == 'R')
 	{
-		check_type (map_info, map_info->mapp[runner_pp->y][runner_pp->x + 1]);
-		map_info->mapp[runner_pp->y][runner_pp->x] = '1';
-		runner_pp->x++;
+		check_type (map_info, map_info->mapp[runner_pp.y][runner_pp.x + 1]);
+		map_info->mapp[runner_pp.y][runner_pp.x] = '1';
+		runner_pp.x++;
+		map_info->mapp[runner_pp.y][runner_pp.x] = 'P';
 	}
 	if (c == 'U')
 	{
-		check_type (map_info, map_info->mapp[runner_pp->y - 1][runner_pp->x]);
-		map_info->mapp[runner_pp->y][runner_pp->x] = '1';
-		runner_pp->y--;
+		check_type (map_info, map_info->mapp[runner_pp.y - 1][runner_pp.x]);
+		map_info->mapp[runner_pp.y][runner_pp.x] = '1';
+		runner_pp.y--;
+		map_info->mapp[runner_pp.y][runner_pp.x] = 'P';
 	}
 	if (c == 'L')
 	{
-		check_type (map_info, map_info->mapp[runner_pp->y][runner_pp->x - 1]);
-		map_info->mapp[runner_pp->y][runner_pp->x] = '1';
-		runner_pp->x--;
+		check_type (map_info, map_info->mapp[runner_pp.y][runner_pp.x - 1]);
+		map_info->mapp[runner_pp.y][runner_pp.x] = '1';
+		runner_pp.x--;
+		map_info->mapp[runner_pp.y][runner_pp.x] = 'P';
 	}
 	if (c == 'D')
 	{
-		check_type (map_info, map_info->mapp[runner_pp->y + 1][runner_pp->x]);
-		map_info->mapp[runner_pp->y][runner_pp->x] = '1';
-		runner_pp->y++;
+		check_type (map_info, map_info->mapp[runner_pp.y + 1][runner_pp.x]);
+		map_info->mapp[runner_pp.y][runner_pp.x] = '1';
+		runner_pp.y++;
+		map_info->mapp[runner_pp.y][runner_pp.x] = 'P';
 	}
+	return (runner_pp);
+	f_print_map(map_info->mapp);
 }
 
 static void	map_runner(t_map *map_info, t_vector runner_pp)
 {
+	ft_printf("x = %i , y = %i\n\n", runner_pp.x, runner_pp.y);
 	if (map_info->mapp[runner_pp.y][runner_pp.x + 1] != '1')
-	{
-		ft_move (map_info, 'R', &runner_pp);
-		map_runner (map_info, runner_pp);
-	}
+		map_runner (map_info, ft_move (map_info, 'R', runner_pp));
 	if (map_info->mapp[runner_pp.y - 1][runner_pp.x] != '1')
-	{
-		ft_move (map_info, 'U', &runner_pp);
-		map_runner (map_info, runner_pp);
-	}
+		map_runner (map_info, ft_move (map_info, 'U', runner_pp));
 	if (map_info->mapp[runner_pp.y][runner_pp.x - 1] != '1')
-	{
-		ft_move (map_info, 'L', &runner_pp);
-		map_runner (map_info, runner_pp);
-	}
+		map_runner (map_info, ft_move (map_info, 'L', runner_pp));
 	if (map_info->mapp[runner_pp.y + 1][runner_pp.x] != '1')
-	{
-		ft_move (map_info, 'D', &runner_pp);
-		map_runner (map_info, runner_pp);
-	}
+		map_runner (map_info, ft_move (map_info, 'D', runner_pp));
 }
 
 int	check_valid_path(t_map *map_info)
