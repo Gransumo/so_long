@@ -14,7 +14,20 @@
 
 void	win_game(t_game *game);
 
-static int	check_move(t_game *game, t_tile *tile)
+void	ch_dir(int key, t_game *game)
+{
+	if (key == DIR_UP || key == UP)
+		game->player.img = &game->images.player_up;
+	else if (key == DIR_DOWN || key == DOWN)
+		game->player.img = &game->images.player_down;
+	else if (key == DIR_LEFT || key == LEFT)
+		game->player.img = &game->images.player_left;
+	else if (key == DIR_RIGHT || key == RIGHT)
+		game->player.img = &game->images.player_right;
+	set_image(game, game->player.tile);
+}
+
+static int	check_move(t_game *game, t_tile *tile, int key)
 {
 	int	checker;
 
@@ -28,23 +41,14 @@ static int	check_move(t_game *game, t_tile *tile)
 		if (game->collects == 0)
 			finish_game(game);
 		else
-			return (error("TO FINISH YOU HAVE TO GET ALL COLLECTABLE\n"));
+		{
+			ch_dir(key, game);
+			return (error("TO FINISH YOU HAVE TO GET ALL COLLECTABLES\n"));
+		}
 	}
 	return (checker);
 }
 
-void	ch_dir(int key, t_game *game)
-{
-	if (key == DIR_UP || key == UP)
-		game->player.img->img = game->images.player_up.img;
-	else if (key == DIR_DOWN || key == DOWN)
-		game->player.img->img = game->images.player_down.img;
-	else if (key == DIR_LEFT || key == LEFT)
-		game->player.img->img = game->images.player_left.img;
-	else if (key == DIR_RIGHT || key == RIGHT)
-		game->player.img->img = game->images.player_right.img;
-	set_image(game, game->player.tile);
-}
 
 int	key_input(int key, t_game *game)
 {
@@ -56,13 +60,13 @@ int	key_input(int key, t_game *game)
 	else if ((key >= LEFT && key <= RIGHT) || key == UP)
 	{
 		if (key == UP)
-			checker = check_move(game, game->player.tile->up);
+			checker = check_move(game, game->player.tile->up, key);
 		else if (key == DOWN)
-			checker = check_move(game, game->player.tile->down);
+			checker = check_move(game, game->player.tile->down, key);
 		else if (key == RIGHT)
-			checker = check_move(game, game->player.tile->right);
+			checker = check_move(game, game->player.tile->right, key);
 		else if (key == LEFT)
-			checker = check_move(game, game->player.tile->left);
+			checker = check_move(game, game->player.tile->left, key);
 		if (checker != 0)
 			move_to(key, game);
 	}

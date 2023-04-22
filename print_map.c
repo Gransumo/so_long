@@ -60,7 +60,7 @@ void	init_images_menu(t_game *game)
 	"images_files/player_left.xpm", PLAYER);
 	game->images.player_down = init_image (game->mlx, \
 	"images_files/player_down.xpm", PLAYER);
-	game->player.img = &game->images.player_up;
+	game->player.img = &game->images.player_right;
 }
 
 void	init_window(t_game *game)
