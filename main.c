@@ -15,12 +15,12 @@
 t_tile		**tilemap_generator(char **map, t_game *game);
 //void		f_print_map(char **map);
 
-void	ft_leaks()
+/* void	ft_leaks()
 {
 	system("leaks init.out");
 }
-
-void	print_map(t_game game)
+ */
+/* void	print_map(t_game game)
 {
 	int	y;
 	int	x;
@@ -38,7 +38,7 @@ void	print_map(t_game game)
 		ft_printf("\n");
 		y++;
 	}
-}
+} */
 
 t_tile	**init_map(t_game *game, int argc, char **argv)
 {
@@ -89,11 +89,11 @@ int	start_game(t_game *game, int argc, char **argv)
 	return (1);
 }
 
+//atexit(ft_leaks);
 int	main(int argc, char	**argv)
 {
 	t_game	game;
 
-	atexit(ft_leaks);
 	if (start_game (&game, argc, argv) == 0)
 		return (0);
 	mlx_hook (game.mlx_win.reference, 2, 0, key_input, &game);

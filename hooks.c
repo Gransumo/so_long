@@ -12,8 +12,6 @@
 
 #include "so_long.h"
 
-void	win_game(t_game *game);
-
 void	ch_dir(int key, t_game *game)
 {
 	if (key == DIR_UP || key == UP)
@@ -49,7 +47,6 @@ static int	check_move(t_game *game, t_tile *tile, int key)
 	return (checker);
 }
 
-
 int	key_input(int key, t_game *game)
 {
 	int	checker;
@@ -73,6 +70,6 @@ int	key_input(int key, t_game *game)
 	else if (key >= DIR_LEFT && key <= DIR_UP)
 		ch_dir(key, game);
 	else
-		ft_printf("\nTECLA INVALIDA\n");
+		ft_printf("\nINVALID KEY\n");
 	return (0);
 }
