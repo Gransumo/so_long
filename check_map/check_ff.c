@@ -51,53 +51,61 @@ static int	check_final_values(t_map *map_info)
 static t_vector	ft_move(t_map *map_info, char c, t_vector runner_pp)
 {
 	if (c == 'R')
-	{	
+	{
+		check_type (map_info, map_info->mapp[runner_pp.y][runner_pp.x + 1]);
 		map_info->mapp[runner_pp.y][runner_pp.x] = '1';
 		runner_pp.x++;
-		map_info->mapp[runner_pp.y][runner_pp.x] = 'P';
+		//map_info->mapp[runner_pp.y][runner_pp.x] = 'P';
 	}
 	if (c == 'U')
-	{	
+	{
+		check_type (map_info, map_info->mapp[runner_pp.y - 1][runner_pp.x]);
 		map_info->mapp[runner_pp.y][runner_pp.x] = '1';
 		runner_pp.y--;
-		map_info->mapp[runner_pp.y][runner_pp.x] = 'P';
+		//map_info->mapp[runner_pp.y][runner_pp.x] = 'P';
 	}
 	if (c == 'L')
 	{
+		check_type (map_info, map_info->mapp[runner_pp.y][runner_pp.x - 1]);
 		map_info->mapp[runner_pp.y][runner_pp.x] = '1';
 		runner_pp.x--;
-		map_info->mapp[runner_pp.y][runner_pp.x] = 'P';
+		//map_info->mapp[runner_pp.y][runner_pp.x] = 'P';
 	}
 	if (c == 'D')
 	{
+		check_type (map_info, map_info->mapp[runner_pp.y + 1][runner_pp.x]);
 		map_info->mapp[runner_pp.y][runner_pp.x] = '1';
 		runner_pp.y++;
-		map_info->mapp[runner_pp.y][runner_pp.x] = 'P';
+		//map_info->mapp[runner_pp.y][runner_pp.x] = 'P';
 	}
 	return (runner_pp);
 }
 
 static void	map_runner(t_map *map_info, t_vector runner_pp)
 {
-	if (map_info->mapp[runner_pp.y][runner_pp.x + 1] != '1')
+	if (map_info->mapp[runner_pp.y][runner_pp.x + 1] != '1'
+		&& map_info->mapp[runner_pp.y][runner_pp.x + 1] != 'P')
 	{
-		check_type (map_info, map_info->mapp[runner_pp.y][runner_pp.x + 1]);
 		map_runner (map_info, ft_move (map_info, 'R', runner_pp));
+		//map_info->mapp[runner_pp.y][runner_pp.x] = 'P';
 	}
-	if (map_info->mapp[runner_pp.y - 1][runner_pp.x] != '1')
+	if (map_info->mapp[runner_pp.y - 1][runner_pp.x] != '1'
+		&& map_info->mapp[runner_pp.y - 1][runner_pp.x] != 'P')
 	{
-		check_type (map_info, map_info->mapp[runner_pp.y - 1][runner_pp.x]);
 		map_runner (map_info, ft_move (map_info, 'U', runner_pp));
+		//map_info->mapp[runner_pp.y][runner_pp.x] = 'P';
 	}
-	if (map_info->mapp[runner_pp.y][runner_pp.x - 1] != '1')
+	if (map_info->mapp[runner_pp.y][runner_pp.x - 1] != '1'
+		&& map_info->mapp[runner_pp.y][runner_pp.x - 1] != 'P')
 	{
-		check_type (map_info, map_info->mapp[runner_pp.y][runner_pp.x - 1]);
 		map_runner (map_info, ft_move (map_info, 'L', runner_pp));
+		//map_info->mapp[runner_pp.y][runner_pp.x] = 'P';
 	}
-	if (map_info->mapp[runner_pp.y + 1][runner_pp.x] != '1')
+	if (map_info->mapp[runner_pp.y + 1][runner_pp.x] != '1'
+		&& map_info->mapp[runner_pp.y + 1][runner_pp.x] != 'P')
 	{
-		check_type (map_info, map_info->mapp[runner_pp.y + 1][runner_pp.x]);
 		map_runner (map_info, ft_move (map_info, 'D', runner_pp));
+		//map_info->mapp[runner_pp.y][runner_pp.x] = 'P';
 	}
 }
 
