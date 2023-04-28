@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "../so_long.h"
-void	f_print_map(char **map)
+/* void	f_print_map(char **map)
 {
 	int	i;
 	int	j;
@@ -29,7 +29,7 @@ void	f_print_map(char **map)
 		i++;
 	}
 	ft_printf ("\n\n");
-}
+} */
 
 static void	check_type(t_map *map_info, char c)
 {
@@ -101,7 +101,8 @@ static void	map_runner(t_map *map_info, t_vector runner_pp)
 	}
 }
 
-int	check_valid_path(t_map *map_info)
+//f_print_map(map_info->mapp);
+int	check_path(t_map *map_info)
 {
 	t_vector	runner_pp;
 

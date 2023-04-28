@@ -16,9 +16,9 @@
 
 //void f_print_map(char **map);
 
-static size_t	line_counter(char *args)
+static int	line_counter(char *args)
 {
-	size_t	line_counter;
+	int		line_counter;
 	int		fd;
 	int		n_rchars;
 	char	c;
@@ -32,7 +32,8 @@ static size_t	line_counter(char *args)
 	{
 		n_rchars = read (fd, &c, 1);
 		if (n_rchars < 0)
-			return (0);
+			return (error("ERROR\nFILE CANNOT BE OPEN OR READ,\
+			MAYBE THE FILE CANNOT BE FOUND OR DONT EXIST"));
 		if (c == '\n')
 			line_counter++;
 	}
@@ -40,18 +41,13 @@ static size_t	line_counter(char *args)
 	return (line_counter);
 }
 
-static char	**alloc_map_size(char *args)
+static char	**alloc_map_size(int line_count)
 {
 	char	**map;
-	size_t	line_count;
 
-	line_count = line_counter (args);
-	if (line_count == 0)
-		return (null_error ("FILE CANNOT BE OPEN OR READ, \
-		MAYBE THE FILE CANNOT BE FOUND OR DONT EXIST"));
 	map = malloc (sizeof(char *) * (line_count + 1));
 	if (map == NULL)
-		return (null_error ("MAP CANNOT BE ALLOCATED"));
+		return (null_error ("ERROR\nMAP CANNOT BE ALLOCATED"));
 	map[line_count] = 0;
 	return (map);
 }
@@ -63,12 +59,16 @@ char	**read_map(char	*args)
 	int		i;
 	int		lines;
 
-	map = alloc_map_size (args);
+	lines = line_counter (args);
+	if (lines == 0)
+		return (0);
+	map = alloc_map_size (lines);
 	if (map == NULL)
 		return (NULL);
-	lines = line_counter (args);
 	i = 0;
 	fd = open (args, O_RDONLY);
+	if (fd < 0)
+		return (null_error("ERROR\nMAP CANT BE OPEN"));
 	while (i < lines)
 		map[i++] = get_next_line (fd);
 	map[i] = NULL;

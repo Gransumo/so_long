@@ -12,7 +12,7 @@
 
 #include "../so_long.h"
 
-int			check_valid_path(t_map *map_info);
+int			check_path(t_map *map_info);
 void		init_mapvars(t_map *map);
 
 static int	first_last_line(char *line)
@@ -119,7 +119,7 @@ int	check_map_rules(char **map)
 		}
 		i++;
 	}
-	if (check_map_values (&map_info) == 0 || check_valid_path (&map_info) == 0)
+	if (check_map_values (&map_info) == 0 || check_path (&map_info) == 0)
 	{
 		ft_free_map (map_info.mapp);
 		return (0);

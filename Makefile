@@ -2,7 +2,7 @@ CC			= gcc
 CFLAGS		= -Wall -Werror -Wextra -glldb
 LINKS		= -lmlx -framework OpenGL -framework AppKit
 RM			= rm -f
-NAME		= init.out
+NAME		= so_long
 SRCS		= main.c error.c print_map.c close.c hooks.c moves.c $(SRC_GNL) $(SRC_MAP)
 OBJS		= ${SRCS:.c=.o}
 AR			= ar rc
