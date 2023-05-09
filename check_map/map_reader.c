@@ -25,7 +25,7 @@ static int	line_counter(char *args)
 
 	fd = open (args, O_RDONLY);
 	if (fd < 0)
-		return (0);
+		return (error("MAP DOES NOT EXIST"));
 	line_counter = 1;
 	n_rchars = 1;
 	while (n_rchars != 0)
