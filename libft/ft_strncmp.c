@@ -39,7 +39,11 @@ int	ft_strcmp_end(const char *s, const char *final)
 	int	i;
 	int	j;
 
+	if (!s || !final)
+		return (0);
 	i = (ft_strlen (s) - ft_strlen(final));
+	if (i < 0)
+		return (0);
 	j = 0;
 	while (s[i] != '\0')
 	{

@@ -108,8 +108,8 @@ void		init_images_menu(t_game *game);
 int			finish_game(t_game *game);
 void		ft_free_tilemap(t_tile	**tilemap);
 int			key_input(int key, t_game *game);
-void		print_map(t_game game);
 void		set_image(t_game *game, t_tile *tile);
 void		move_to(int key, t_game *game);
 
+//void		print_map(t_game game);
 #endif

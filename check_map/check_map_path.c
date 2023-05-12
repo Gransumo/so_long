@@ -31,82 +31,62 @@
 	ft_printf ("\n\n");
 } */
 
-static void	check_type(t_map *map_info, char c)
+static int	check_type(t_map *v_map, char c)
 {
-	if (c == 'C')
-		map_info->n_c--;
 	if (c == 'E')
-		map_info->n_e = 0;
+		v_map->n_e = 0;
+	else if (c == '0')
+		return (1);
+	else if (c == 'C')
+	{
+		v_map->n_c--;
+		return (1);
+	}
+	return (0);
 }
 
-static int	check_final_values(t_map *map_info)
+static t_vector	ft_move(t_map *v_map, char c, t_vector r_pp)
 {
-	if (map_info->n_c != 0)
+	v_map->mapp[r_pp.y][r_pp.x] = '1';
+	if (c == 'R')
+		r_pp.x++;
+	else if (c == 'U')
+		r_pp.y--;
+	else if (c == 'L')
+		r_pp.x--;
+	else if (c == 'D')
+		r_pp.y++;
+	v_map->mapp[r_pp.y][r_pp.x] = 'P';
+	return (r_pp);
+}
+
+static int	check_final_values(t_map *v_map)
+{
+	if (v_map->n_c != 0)
 		return (error ("IT IS NOT POSSIBLE TO GET ALL COLLECTABLES"));
-	if (map_info->n_e != 0)
+	if (v_map->n_e != 0)
 		return (error ("IT IS NOT POSSIBLE TO REACH THE EXIT"));
 	return (1);
 }
 
-static t_vector	ft_move(t_map *map_info, char c, t_vector runner_pp)
+static void	map_runner(t_map *v_map, t_vector r_pp)
 {
-	if (c == 'R')
-	{	
-		map_info->mapp[runner_pp.y][runner_pp.x] = '1';
-		runner_pp.x++;
-		map_info->mapp[runner_pp.y][runner_pp.x] = 'P';
-	}
-	if (c == 'U')
-	{	
-		map_info->mapp[runner_pp.y][runner_pp.x] = '1';
-		runner_pp.y--;
-		map_info->mapp[runner_pp.y][runner_pp.x] = 'P';
-	}
-	if (c == 'L')
-	{
-		map_info->mapp[runner_pp.y][runner_pp.x] = '1';
-		runner_pp.x--;
-		map_info->mapp[runner_pp.y][runner_pp.x] = 'P';
-	}
-	if (c == 'D')
-	{
-		map_info->mapp[runner_pp.y][runner_pp.x] = '1';
-		runner_pp.y++;
-		map_info->mapp[runner_pp.y][runner_pp.x] = 'P';
-	}
-	return (runner_pp);
+	if (check_type (v_map, v_map->mapp[r_pp.y][r_pp.x + 1]) != 0)
+		map_runner (v_map, ft_move (v_map, 'R', r_pp));
+	if (check_type (v_map, v_map->mapp[r_pp.y - 1][r_pp.x]) != 0)
+		map_runner (v_map, ft_move (v_map, 'U', r_pp));
+	if (check_type (v_map, v_map->mapp[r_pp.y][r_pp.x - 1]) != 0)
+		map_runner (v_map, ft_move (v_map, 'L', r_pp));
+	if (check_type (v_map, v_map->mapp[r_pp.y + 1][r_pp.x]) != 0)
+		map_runner (v_map, ft_move (v_map, 'D', r_pp));
 }
 
-static void	map_runner(t_map *map_info, t_vector runner_pp)
+int	check_path(t_map *v_map)
 {
-	if (map_info->mapp[runner_pp.y][runner_pp.x + 1] != '1')
-	{
-		check_type (map_info, map_info->mapp[runner_pp.y][runner_pp.x + 1]);
-		map_runner (map_info, ft_move (map_info, 'R', runner_pp));
-	}
-	if (map_info->mapp[runner_pp.y - 1][runner_pp.x] != '1')
-	{
-		check_type (map_info, map_info->mapp[runner_pp.y - 1][runner_pp.x]);
-		map_runner (map_info, ft_move (map_info, 'U', runner_pp));
-	}
-	if (map_info->mapp[runner_pp.y][runner_pp.x - 1] != '1')
-	{
-		check_type (map_info, map_info->mapp[runner_pp.y][runner_pp.x - 1]);
-		map_runner (map_info, ft_move (map_info, 'L', runner_pp));
-	}
-	if (map_info->mapp[runner_pp.y + 1][runner_pp.x] != '1')
-	{
-		check_type (map_info, map_info->mapp[runner_pp.y + 1][runner_pp.x]);
-		map_runner (map_info, ft_move (map_info, 'D', runner_pp));
-	}
-}
+	t_vector	r_pp;
 
-//f_print_map(map_info->mapp);
-int	check_path(t_map *map_info)
-{
-	t_vector	runner_pp;
-
-	runner_pp = find_pp (map_info->mapp);
-	map_runner (map_info, runner_pp);
-	return (check_final_values (map_info));
+	r_pp = find_pp (v_map->mapp);
+	map_runner (v_map, r_pp);
+	return (check_final_values (v_map));
 }
+//f_print_map(v_map->mapp);

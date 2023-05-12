@@ -22,4 +22,6 @@ int		ft_strlen(const char *c);
 int		ft_strlen_linemap(const char *c);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_strcmp_end(const char *s, const char *final);
+void	*ft_calloc(size_t count, size_t size);
+void	ft_bzero(void *s, size_t n);
 #endif

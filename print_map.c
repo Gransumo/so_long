@@ -19,6 +19,8 @@ static t_image	init_image(void *mlx, char *path, t_tiletype type)
 	img.type = type;
 	img.path = path;
 	img.img = mlx_xpm_file_to_image (mlx, path, &img.size.x, &img.size.y);
+	if (!img.img)
+		exit(error("AN IMAGE HAS NOT BEEN FOUND"));
 	img.addr = mlx_get_data_addr (img.img, &img.bpp, \
 				&img.line_size, &img.endian);
 	return (img);
@@ -68,7 +70,7 @@ void	init_window(t_game *game)
 	t_vector	int_vars;
 
 	game->mlx_win.reference = mlx_new_window (game->mlx, \
-	game->mlx_win.size.x, game->mlx_win.size.y, "so_long");
+		game->mlx_win.size.x, game->mlx_win.size.y, "so_long");
 	int_vars.y = 0;
 	while (game->tilemap[int_vars.y])
 	{

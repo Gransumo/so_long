@@ -7,10 +7,10 @@
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
-                "maps_files/map.ber"
+                "maps/prueba.ber"
             ],
             "options": {
-                "cwd": "init.out"
+                "cwd": "so_long"
             },
             "problemMatcher": [
                 "$gcc"

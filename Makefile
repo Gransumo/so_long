@@ -1,5 +1,5 @@
 CC			= gcc
-CFLAGS		= -Wall -Werror -Wextra -glldb
+CFLAGS		= -Wall -Werror -Wextra -fsanitize=address -g #-glldb
 LINKS		= -lmlx -framework OpenGL -framework AppKit
 RM			= rm -f
 NAME		= so_long

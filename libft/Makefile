@@ -3,7 +3,8 @@ CC		= gcc
 CFLAGS	= -Wall -Werror -Wextra -glldb
 RM		= rm -f
 NAME	= libft.a
-SRCS	=  ft_strchr.c ft_strlen.c ft_strncmp.c ft_charmap_linecounter.c
+SRCS	=  ft_strchr.c ft_strlen.c ft_strncmp.c ft_charmap_linecounter.c \
+			ft_calloc.c ft_bzero.c
 OBJS	= ${SRCS:.c=.o}
 AR		= ar rc
 

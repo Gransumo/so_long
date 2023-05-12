@@ -17,13 +17,14 @@ t_tile	**alloc_tilemap(char **map)
 	t_tile	**tilemap;
 	int		i;
 
-	tilemap = malloc (sizeof (t_tile *) * ft_charmap_linecounter (map) + 1);
+	tilemap = ft_calloc (sizeof (t_tile *), ft_charmap_linecounter (map) + 1);
 	if (!tilemap)
 		return (NULL);
 	i = 0;
 	while (map[i] != NULL)
 	{
-		tilemap[i] = malloc (sizeof (t_tile) * ft_strlen_linemap (map[i]) + 1);
+		tilemap[i] = ft_calloc (sizeof (t_tile),
+				ft_strlen_linemap (map[i]) + 1);
 		if (!tilemap)
 		{
 			ft_free_tilemap (tilemap);
@@ -92,7 +93,6 @@ t_tile	**tilemap_generator(char **map, t_game *game)
 			set_gamevars(game, &tilemap[y][x]);
 			x++;
 		}
-		tilemap[y][x].type = 0;
 		y++;
 	}
 	tilemap[y] = NULL;

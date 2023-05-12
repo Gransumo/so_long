@@ -54,14 +54,14 @@ char	**chartab_dup(char	**map)
 	char		**dup;
 	t_vector	index;
 
-	dup = malloc (sizeof (char *) * ft_charmap_linecounter (map) + 1);
+	dup = ft_calloc (sizeof (char *), ft_charmap_linecounter (map) + 1);
 	if (!dup)
-		return (NULL);
+		return (null_error("ERROR ALLOCATING MAP DUPP"));
 	index.x = 0;
 	while (map[index.x])
 	{
 		index.y = 0;
-		dup[index.x] = malloc (ft_strlen (map[index.x]) + 1);
+		dup[index.x] = ft_calloc (sizeof (char), ft_strlen (map[index.x]) + 1);
 		if (!dup[index.x])
 			return (null_error ("ERROR TO MALLOC THE MAP COPY"));
 		while (map[index.x][index.y] != '\0')
@@ -72,14 +72,13 @@ char	**chartab_dup(char	**map)
 		dup[index.x][index.y] = '\0';
 		index.x++;
 	}
-	dup [index.x] = NULL;
 	return (dup);
 }
 
 void	init_mapvars(t_map *map)
 {
 	map->len_x = ft_strlen_linemap (map->mapp[0]);
-	map->n_lines = 0;
+	map->n_lines = -1;
 	map->n_c = 0;
 	map->n_e = 0;
 	map->n_p = 0;

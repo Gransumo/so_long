@@ -17,9 +17,9 @@ t_tile		**tilemap_generator(char **map, t_game *game);
 
 /* void	ft_leaks()
 {
-	system("leaks init.out");
-}
- */
+	system("leaks so_long");
+} */
+
 /* void	print_map(t_game game)
 {
 	int	y;
